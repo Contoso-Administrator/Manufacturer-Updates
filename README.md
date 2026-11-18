@@ -56,4 +56,4 @@ Updates usually apply if the script does not fail, but there is no error handlin
 >
 >- Computer is either a Dell or HP.
 >- ManufacturerUpdates.ps1 must run as **Administrator** or **SYSTEM** or it will fail.
->- Internet access is needed to download the installer and updates.
+>- Internet access is needed to download the installer and updates. If there is no internet the script will silently fail.
