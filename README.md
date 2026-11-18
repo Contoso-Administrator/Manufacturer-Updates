@@ -1,4 +1,4 @@
-Manufacturer Updates (Dell/HP)
+# Manufacturer Updates (Dell/HP)
 
 <p>This tool was developed to quickly apply unattended manufacturer updates with no package dependencies as a quick fix for out of date Dell or HP computers. The script detects the computer manufacturer, checks whether Dell Command Update (DCU) or HP Image Assistant (HPIA) is already installed, installs the appropriate utility when necessary, and then silently applies available (OEM drivers/firmware) updates.</p>
 <br /> 
