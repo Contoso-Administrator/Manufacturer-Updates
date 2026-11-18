@@ -1,63 +1,61 @@
-# Manufacturer Updates (Dell/DP)
-<p>This tool was developed to quickly apply manufacturer updates with no package dependencies as a hot-fix for out of date Dell or HP computers. The script detects the computer manufacturer, checks whether Dell Command Update (DCU) or HP Image Assistant (HPIA) is already installed, installs the appropriate utility when necessary, and then silently applies available (OEM drivers/firmware) updates (automatic reboots are disabled).</p>
+
+<p>This tool was developed to quickly apply unattended manufacturer updates with no package dependencies as a quick fix for out of date Dell or HP computers. The script detects the computer manufacturer, checks whether Dell Command Update (DCU) or HP Image Assistant (HPIA) is already installed, installs the appropriate utility when necessary, and then silently applies available (OEM drivers/firmware) updates.</p>
 <br /> 
 
 <h3>Execution</h3>
-Run this script from an elevated PowerShell session or deploy it through an endpoint-management platform using SYSTEM context. ManufacturerUpdates.ps1 can be used with non-standard system paths as it was purposely built to be drive agnostic (by using the $env:SYSTEMDRIVE variable).
+<p>Run this script from an elevated PowerShell session or deploy it through an endpoint-management platform using SYSTEM context. ManufacturerUpdates.ps1 can be used with non-standard system paths as it was purposely built to be drive agnostic (by using the $env:SYSTEMDRIVE variable).</p><br />
+
+<ins>Workflow:</ins>
+```mermaid
+flowchart LR
+    A[Detects if DCU/HPIA is installed] --> B[Install DCU/HPIA if needed]
+    B --> C[Scans/Downloads] --> D[Updates]
+```
 <br />
 
-Script Workflow:
-Detects if DCU/HPIA is installed → Install DCU/HPIA if needed → Scans/Downloads → Apply updates
+The script detects the computer manufacturer by querying 'Get-CimInstance' and then confirms if Dell Command Update or HP Image Assistant is installed by testing the following paths:
+- <ins>Dell Command Update:</ins> ~\Program Files (x86)\Dell\CommandUpdate\dcu-cli.exe
+- <ins>HP Image Assistant</ins>: ~\SWSetup\HPIA\HPImageAssistant.exe
 <br />
 
-
-
-- If you need to change the color matching to tune it to your environment, it can be edited in <a href="https://github.com/Contoso-Administrator/ADSearch/blob/cfed1e7b07852694d2667bc6c9b0468e93c24b2f/ADSearch.ps1#L201" target="_blank">lines 201-204</a>
-- If you need to change the score range, it can be edited in <a href="https://github.com/Contoso-Administrator/ADSearch/blob/cfed1e7b07852694d2667bc6c9b0468e93c24b2f/ADSearch.ps1#L133" target="_blank">lines 133-137</a> (depending on similarity to the two forest (user/computer) structured domain).
-<br />
-
-# ADSearch_Excel
-
-<p>ADSearch_Excel is the Excel version of the ADSearch lookup tool and can be an effective tool for auditing computer locations within Active Directory. It works by opening a workbook, finding each user listed in the 'Last Login' column (by searching the workbook for that header), and looks up the computer in that row's 'Hostname' column. The script then compares the computer and user OUs to estimate matching results in a new column. It is recommended to tune the matching of this tool and apply it to your environment(s) and workflow.
-  
 >[!NOTE]
->ADSearch_Excel is setup by default to work with ServiceNow CMDB (.xlsx) exports.
-<br />
+Automatic reboots are disabled and both tools are not set to any schedule by default. 
 
-ADSearch_Excel works by placing the script in the same directory as the Excel workbook you are needing to add ADSearch results in and can be ran by starting the script with a domain account that can read user and computer objects in Active Directory. The script will fail if more than one Excel workbook is in the same directory as the script. ADSearch_Excel will import/install all required dependencies (Install-Module and ImportExcel) at start. The script will then add the columns 'OU Match Percentage', 'OU Match Reason', and 'AD_Name' to each row of the workbook for easy auditing. After the script is done, it will then add a worksheet called 'ADSearch_ErrorLog' with verbose logs of the results.
-<br /><br />
-
-<ins>OU Match Percentage</ins><br />
-Returns the results of the fuzzy Levenshteinin matching in a percentage.
-
-<ins>OU Match Reason</ins><br />
-Returns match result along with the user and computer location or the  error result for that lookup (ex. ERROR: Computer Lookup)
-
-<ins>AD_Name</ins><br />
-Returns the username (SamAccountName) or error result for that lookup (ex. ERROR: Disabled).
-
-<br />
+<p>If the script does not detect Dell Command Update or HP Image Assistant, it will then download the initial installer to the %TEMP% folder ("~\AppData\Local\Temp" or "~\Windows\Temp", depending if it was ran by **Administrator** or **SYSTEM**) before it installs to the above locations. Manufacturer updates are then silently applied after scanning the computer and downloading the updates.</p><br />
 
 >[!CAUTION]
->The variable <ins>$DomainSuffix</ins> must be set to the suffix of your domain in <a href="https://github.com/Contoso-Administrator/ADSearch/blob/799ea05bc4585e1c2df99075fa258756372e7a59/ADSearch_Excel.ps1#L7" target="_blank">line 7</a> of ADSearch_Excel.ps1. This is because this portion of the tool is designed to be able to work with multi-domain environments.
+Updates usually apply if the script does not fail, but there is no error handling written for this process. Updates should be confirmed in either the <a href="https://www.dell.com/support/manuals/en-us/command-update/dcu_ug/activity-log?guid=guid-31fdd315-57c4-48d5-9847-a3f9f1dd86d7&lang=en-us" target="_blank">Dell</a> or <a href="https://ftp.hp.com/pub/caps-softpaq/cmit/whitepapers/HPIAUserGuide2.pdf" target="_blank">HP</a> logs.
+
+<br />
+<h3>Installer URLs</h3>
+<p>Dell / HP periodically release new versions of Dell Command Update / HP Image Assistant and the download links are changed as a result. If installation suddenly stops working, verify the configured installer URLs first by copying them into a browser to confirm it downloads the tool. Follow the instructions below to confirm and update the URLs for these tools.</p><br />
+
+1. If the installer URL needs to be updated, navigate to the links for Dell Command Update and/or HP Image Assistant to right-click on the download links for the respective tool and select the option to 'copy this link'.
+   
+- [Dell Command Update](https://www.dell.com/support/kbdoc/en-us/000177325/dell-command-update) (select the option for 'Windows Universal Application'):
+![[Pasted image 20261118115922.png]]
+
+- Then right-click the option for 'Download .EXE' to "copy this link":
+![[Pasted image 20261118123717.png]]
+
+- [HP Image Assistant](https://ftp.ext.hp.com/pub/caps-softpaq/cmit/HPIA.html) (right-click the option for 'SoftPaq' to "copy this link"):
+![[Pasted image 20261118123625.png]]
 <br />
 
-<h3>Tuning ADSearch_Excel.ps1</h3>
-The headers used for matching can edited by changing the variables below, along with the score range:
-<br /><br />
+2. Confirm that the direct download links work by pasting the URL into your browser (the link should end in .exe) and verifying that the links downloads the installer for Dell Command Update and/or HP Image Assistant.
 
-- Set the <ins>$FullNameHeader</ins> variable for the workbook header that has full user names (ex. John Doe) <a href="https://github.com/Contoso-Administrator/ADSearch/blob/02e4c6ef2dfc27e6df60bd4df423c6e0e4ce72fd/ADSearch_Excel.ps1#L2" target="_blank">line 2</a>.
-- Set the <ins>$HostnameHeader</ins> variable for the workbook header that has the computer hostname (ex. DESKTOP-1234) <a href="https://github.com/Contoso-Administrator/ADSearch/blob/02e4c6ef2dfc27e6df60bd4df423c6e0e4ce72fd/ADSearch_Excel.ps1#L3" target="_blank">line 3</a>.
-- Set the <ins>$DomainSuffix</ins> variable to the suffix of your domain <a href="https://github.com/Contoso-Administrator/ADSearch/blob/799ea05bc4585e1c2df99075fa258756372e7a59/ADSearch_Excel.ps1#L7" target="_blank">line 7</a>
-- If you need to change the score range, it can be edited in <a href="https://github.com/Contoso-Administrator/ADSearch/blob/02e4c6ef2dfc27e6df60bd4df423c6e0e4ce72fd/ADSearch_Excel.ps1#L109" target="_blank">lines 109-112</a> (depending on complexity of the user/computer OU structure).
+3. With the links confirmed, edit the variables for Dell Command Update and/or HP Image Assistant:
+   
+- Dell Command Update:
+       To update the URL for Dell, paste the direct download link into the variable called '$dellUrl' in <a href="https://github.com/Contoso-Administrator/" target="_blank">line 6</a> of "ManufacturerUpdates.ps1".
+- HP Image Assistant:
+	  To update the URL for Dell, paste the direct download link into the variable called '$hpUrl' in <a href="https://github.com/Contoso-Administrator/" target="_blank">line 7</a> of "ManufacturerUpdates.ps1".
+
+>[!NOTE]
+> If you use the 'Classic' option for Dell Command Update, you will also need to update the '$DCU' installer path in <a href="https://github.com/Contoso-Administrator/" target="_blank">line 10</a> to "$env:SYSTEMDRIVE\Program Files (x86)\Dell\CommandUpdate\dcu-cli.exe".
+
 <br />
 
-><h3>Requirements</h3>
->
->- A domain account that can read user and computer objects.
->- For ADSearch_Excel.ps1 to work, the $DomainSuffix variable needs to be edited to your domain <ins>line 7</ins>.
->- A domain-joined Windows machine with the 'RSAT: Active Directory module' installed.
->- Access to the PowerShell Gallery, as the script relies on Install-Module and ImportExcel as a dependency.
->- An Excel workbook (.xlsx) with 'Last Login' and 'Hostname' headers (if variables are left unconfigured) in row 1. 'Last Login' should contain users full names (John Doe) and the 'Hostname' column should contain computer hostnames.
->- This script will only add columns to your workbook, it will not otherwise delete or edit anything.
->- Windows PowerShell 5.1 or later.
+<h3>Requirements</h3>
+>- ManufacturerUpdates.ps1 must run as **Administrator** or **SYSTEM** or it will fail.
+>- Internet access is needed to download the installer and updates.
