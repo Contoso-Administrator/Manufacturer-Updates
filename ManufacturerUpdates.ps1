@@ -34,7 +34,7 @@ elseif (-not $hp -and $manufacturer -like "*HP*") {
     $hpInstaller = "$env:TEMP\HPImageAssistant.exe"
     
     Invoke-WebRequest -Uri $hpUrl -OutFile $hpInstaller -UseBasicParsing
-    Start-Process -FilePath $hpInstaller -ArgumentList "/s /e /f c:\SWSetup\HPIA" -Wait -NoNewWindow
+    Start-Process -FilePath $hpInstaller -ArgumentList "/s /e" -Wait -NoNewWindow
     Start-Process $HPIA -ArgumentList "/Operation:Analyze /Category:All /Selection:All /Action:Install /Silent /Noninteractive" -Wait -NoNewWindow
 }
 
