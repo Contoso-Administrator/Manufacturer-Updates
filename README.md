@@ -22,23 +22,22 @@ Automatic reboots are disabled and both tools are not set to any schedule by def
 <p>If the script does not detect Dell Command Update or HP Image Assistant, it will then download the initial installer to the %TEMP% folder ("~\AppData\Local\Temp" or "~\Windows\Temp", depending if it was ran by **Administrator** or **SYSTEM**) before it installs to the above locations. Manufacturer updates are then silently applied after scanning the computer and downloading the updates.</p><br />
 
 >[!CAUTION]
-Updates usually apply if the script does not fail, but there is no error handling written for this process. Updates should be confirmed in either the <a href="https://www.dell.com/support/manuals/en-us/command-update/dcu_ug/activity-log?guid=guid-31fdd315-57c4-48d5-9847-a3f9f1dd86d7&lang=en-us" target="_blank">Dell</a> or <a href="https://ftp.hp.com/pub/caps-softpaq/cmit/whitepapers/HPIAUserGuide2.pdf" target="_blank">HP</a> logs.
+Updates usually apply if the script does not fail, but there is no error handling written for this process. Updates should be confirmed in either the <a href="https://www.dell.com/support/manuals/en-us/command-update/dcu_ug/activity-log?guid=guid-31fdd315-57c4-48d5-9847-a3f9f1dd86d7&lang=en-us" target="_blank">Dell</a> or <a href="https://ftp.hp.com/pub/caps-softpaq/cmit/whitepapers/HPIAUserGuide2.pdf" target="_blank">HP</a> logs or tool.
 
-<br />
 <h3>Installer URLs</h3>
 <p>Dell / HP periodically release new versions of Dell Command Update / HP Image Assistant and the download links are changed as a result. If installation suddenly stops working, verify the configured installer URLs first by copying them into a browser to confirm it downloads the tool. Follow the instructions below to confirm and update the URLs for these tools.</p><br />
 
 1. If the installer URL needs to be updated, navigate to the links for Dell Command Update and/or HP Image Assistant to right-click on the download links for the respective tool and select the option to 'copy this link'.
    
 - [Dell Command Update](https://www.dell.com/support/kbdoc/en-us/000177325/dell-command-update) (select the option for 'Windows Universal Application'):
-![[Pasted image 20261118115922.png]]
+<img width="1212" height="191" alt="image" src="https://github.com/user-attachments/assets/dbd5e9da-f8fe-4a2c-b4e7-17790e1ec01d" />
 
 - Then right-click the option for 'Download .EXE' to "copy this link":
-![[Pasted image 20261118123717.png]]
+<img width="1242" height="570" alt="image" src="https://github.com/user-attachments/assets/7b8d7551-3afe-4587-ad8d-936bc7237e8b" />
+
 
 - [HP Image Assistant](https://ftp.ext.hp.com/pub/caps-softpaq/cmit/HPIA.html) (right-click the option for 'SoftPaq' to "copy this link"):
-![[Pasted image 20261118123625.png]]
-<br />
+<img width="1443" height="466" alt="image" src="https://github.com/user-attachments/assets/c80d1a85-b094-433b-9752-ab5b5308b4f7" />
 
 2. Confirm that the direct download links work by pasting the URL into your browser (the link should end in .exe) and verifying that the links downloads the installer for Dell Command Update and/or HP Image Assistant.
 
