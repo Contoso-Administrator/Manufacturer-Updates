@@ -2,7 +2,7 @@
 
 <p>This tool was developed to quickly apply unattended manufacturer updates with no package dependencies as a quick fix for out of date Dell or HP computers. The script detects the computer manufacturer, checks whether Dell Command Update (DCU) or HP Image Assistant (HPIA) is already installed, installs the appropriate utility when necessary, and then silently applies available (OEM drivers/firmware) updates.</p><br />
 
-<h3>Execution</h3>
+<h3><ins>Execution</ins></h3>
 <p>Run this script from an elevated PowerShell session or deploy it through an endpoint-management platform using SYSTEM context. ManufacturerUpdates.ps1 can be used with non-standard system paths as it was purposely built to be drive agnostic.</p>
 
 ```mermaid
