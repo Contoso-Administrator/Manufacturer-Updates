@@ -50,10 +50,10 @@ Updates usually apply if the script does not fail, but there is no error handlin
        To update the URL for Dell, paste the direct download link into the variable called '$dellUrl' in <a href="https://github.com/Contoso-Administrator/" target="_blank">line 6</a> of "ManufacturerUpdates.ps1".
 - HP Image Assistant:
 	  To update the URL for Dell, paste the direct download link into the variable called '$hpUrl' in <a href="https://github.com/Contoso-Administrator/" target="_blank">line 7</a> of "ManufacturerUpdates.ps1".
+<br />
 
 >[!NOTE]
 > If you use the 'Classic' option for Dell Command Update, you will also need to update the '$DCU' installer path in <a href="https://github.com/Contoso-Administrator/" target="_blank">line 10</a> to "$env:SYSTEMDRIVE\Program Files (x86)\Dell\CommandUpdate\dcu-cli.exe".
-
 <br />
 
 ><h3>Requirements</h3>
