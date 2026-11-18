@@ -56,6 +56,7 @@ Updates usually apply if the script does not fail, but there is no error handlin
 
 <br />
 
-<h3>Requirements</h3>
+><h3>Requirements</h3>
+>
 >- ManufacturerUpdates.ps1 must run as **Administrator** or **SYSTEM** or it will fail.
 >- Internet access is needed to download the installer and updates.
