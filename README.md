@@ -54,5 +54,6 @@ Updates usually apply if the script does not fail, but there is no error handlin
 
 ><h3>Requirements</h3>
 >
+>- Computer is either a Dell or HP.
 >- ManufacturerUpdates.ps1 must run as **Administrator** or **SYSTEM** or it will fail.
 >- Internet access is needed to download the installer and updates.
