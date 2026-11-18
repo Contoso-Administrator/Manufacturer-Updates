@@ -20,7 +20,7 @@ The script detects the computer manufacturer by querying 'Get-CimInstance' and t
 <p>If the script does not detect Dell Command Update or HP Image Assistant, it will then download the initial installer to the %TEMP% folder ("~\AppData\Local\Temp" or "~\Windows\Temp", depending on the context) before it installs to the above locations. Manufacturer updates are then silently applied after scanning the computer and downloading the updates.</p><br />
 
 >[!CAUTION]
-Updates usually apply if the script does not fail, but there is no error handling written for this process. Updates should be confirmed in either the <a href="https://www.dell.com/support/manuals/en-us/command-update/dcu_ug/activity-log?guid=guid-31fdd315-57c4-48d5-9847-a3f9f1dd86d7&lang=en-us" target="_blank">Dell</a> /<a href="https://ftp.hp.com/pub/caps-softpaq/cmit/whitepapers/HPIAUserGuide2.pdf" target="_blank">HP</a> logs or tool.
+Updates usually apply if the script does not fail, but there is no error handling written for this process. Updates should be confirmed in either the <a href="https://www.dell.com/support/manuals/en-us/command-update/dcu_ug/activity-log?guid=guid-31fdd315-57c4-48d5-9847-a3f9f1dd86d7&lang=en-us" target="_blank">Dell</a> / <a href="https://ftp.hp.com/pub/caps-softpaq/cmit/whitepapers/HPIAUserGuide2.pdf" target="_blank">HP</a> logs or tool.
 <br />
 
 # Installer URLs
