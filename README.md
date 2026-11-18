@@ -1,6 +1,6 @@
 # Manufacturer Updates (Dell/HP)
 
-<p>This tool was developed to quickly apply unattended manufacturer updates with no package dependencies as a quick fix for out of date Dell or HP computers. The script detects the computer manufacturer, checks whether Dell Command Update (DCU) or HP Image Assistant (HPIA) is already installed, installs the appropriate utility when necessary, and then silently applies available (OEM drivers/firmware) updates.</p>
+<p>This tool was developed to quickly apply unattended manufacturer updates with no package dependencies as a quick fix for out of date Dell or HP computers. The script detects the computer manufacturer, checks whether Dell Command Update (DCU) or HP Image Assistant (HPIA) is already installed, installs the appropriate utility when necessary, and then silently applies available (OEM drivers/firmware) updates.</p><br />
 
 <h3>Execution</h3>
 <p>Run this script from an elevated PowerShell session or deploy it through an endpoint-management platform using SYSTEM context. ManufacturerUpdates.ps1 can be used with non-standard system paths as it was purposely built to be drive agnostic.</p>
@@ -10,6 +10,7 @@ flowchart LR
     A[Detects if DCU/HPIA is installed] --> B[Install DCU/HPIA if needed]
     B --> C[Scans/Downloads] --> D[Updates]
 ```
+<br />
 
 The script detects the computer manufacturer by querying 'Get-CimInstance' and then confirms if Dell Command Update or HP Image Assistant is installed by testing the following paths:
 - <ins>Dell Command Update:</ins> ~\Program Files (x86)\Dell\CommandUpdate\dcu-cli.exe
@@ -18,13 +19,15 @@ The script detects the computer manufacturer by querying 'Get-CimInstance' and t
 
 >[!NOTE]
 Automatic reboots are disabled and both tools are not set to any schedule by default. 
+<br />
 
 <p>If the script does not detect Dell Command Update or HP Image Assistant, it will then download the initial installer to the %TEMP% folder ("~\AppData\Local\Temp" or "~\Windows\Temp", depending if it was ran by **Administrator** or **SYSTEM**) before it installs to the above locations. Manufacturer updates are then silently applied after scanning the computer and downloading the updates.</p><br />
 
 >[!CAUTION]
 Updates usually apply if the script does not fail, but there is no error handling written for this process. Updates should be confirmed in either the <a href="https://www.dell.com/support/manuals/en-us/command-update/dcu_ug/activity-log?guid=guid-31fdd315-57c4-48d5-9847-a3f9f1dd86d7&lang=en-us" target="_blank">Dell</a> or <a href="https://ftp.hp.com/pub/caps-softpaq/cmit/whitepapers/HPIAUserGuide2.pdf" target="_blank">HP</a> logs or tool.
+<br />
 
-<h3>Installer URLs</h3>
+##Installer URLs
 <p>Dell / HP periodically release new versions of Dell Command Update / HP Image Assistant and the download links are changed as a result. If installation suddenly stops working, verify the configured installer URLs first by copying them into a browser to confirm it downloads the tool. Follow the instructions below to confirm and update the URLs for these tools.</p><br />
 
 1. If the installer URL needs to be updated, navigate to the links for Dell Command Update and/or HP Image Assistant to right-click on the download links for the respective tool and select the option to 'copy this link'.
