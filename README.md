@@ -54,6 +54,6 @@ Updates usually apply if the script does not fail, but there is no error handlin
 
 ><h3>Requirements</h3>
 >
->- Computer is either a Dell or HP.
+>- Computer is either a <a href="https://www.dell.com/support/kbdoc/en-us/000108963/how-to-use-and-troubleshoot-dell-command-update-to-update-all-drivers-bios-and-firmware-for-your-system#how-to-use-dell-command-update" target="_blank">supported Dell model</a> or <a href="https://ftp.hp.com/pub/caps-softpaq/cmit/imagepal/ref/platformList.html" target="_blank">supported HP model</a>.
 >- ManufacturerUpdates.ps1 must run as **Administrator** or **SYSTEM** or it will fail.
 >- Internet access is needed to download the installer and updates. If there is no internet the script will silently fail.
