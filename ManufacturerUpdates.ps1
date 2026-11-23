@@ -9,7 +9,7 @@ $hpUrl = "https://hpia.hpcloud.hp.com/downloads/hpia/hp-hpia-5.3.4.exe"
 #Dell Command Update
 $DCU = "$env:SYSTEMDRIVE\Program Files\Dell\CommandUpdate\dcu-cli.exe"
 #HP ImageAssistant
-$HPIA = "$env:SYSTEMDRIVE\SWSetup\HPIA\HPImageAssistant.exe"
+$HPIA = "$env:SYSTEMDRIVE\SWSetup\*\HPImageAssistant.exe"
 #Installer checks
 $dell = Test-Path $DCU
 $hp = Test-Path $HPIA
